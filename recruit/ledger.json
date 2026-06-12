@@ -1,0 +1,12 @@
+{
+  "sequence_version": "v2026.06.12-01",
+  "nexus": "Marvin",
+  "operator": "Leo",
+  "entries": [],
+  "rules": {
+    "reply_policy": "private_by_default",
+    "on_record_allowed": true,
+    "max_reply_age_days": 14,
+    "quality_review": "every reply is a sensor reading"
+  }
+}
