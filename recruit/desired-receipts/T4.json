@@ -1,0 +1,22 @@
+{
+  "receipt_id": "desired-email-t4",
+  "type": "desired_email_resolution",
+  "project": "time-machine-onboarding",
+  "transmission_id": "T4",
+  "sequence_version": "v2026.06.12-01",
+  "subject": "Three ways to fight. Pick the one that fits your hands.",
+  "draft_hash": "3e971586674f",
+  "status": "desired",
+  "resolution_status": "unresolved",
+  "expected_evidence": [
+    "send_receipt",
+    "reply_receipt"
+  ],
+  "privacy": "private_by_default",
+  "created_at": "2026-06-15",
+  "resolves_when": "A send receipt exists and the reply is either answered, explicitly closed as no-reply, or logged as a miss with reason.",
+  "receipt_paths": {
+    "send_receipts": "recruit/send-receipts.jsonl",
+    "reply_ledger": "recruit/ledger.json"
+  }
+}

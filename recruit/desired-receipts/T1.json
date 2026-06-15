@@ -1,0 +1,22 @@
+{
+  "receipt_id": "desired-email-t1",
+  "type": "desired_email_resolution",
+  "project": "time-machine-onboarding",
+  "transmission_id": "T1",
+  "sequence_version": "v2026.06.12-01",
+  "subject": "You are traveling at one second per second. Here's how to go faster.",
+  "draft_hash": "702aa0dee09f",
+  "status": "desired",
+  "resolution_status": "unresolved",
+  "expected_evidence": [
+    "send_receipt",
+    "reply_receipt"
+  ],
+  "privacy": "private_by_default",
+  "created_at": "2026-06-15",
+  "resolves_when": "A send receipt exists and the reply is either answered, explicitly closed as no-reply, or logged as a miss with reason.",
+  "receipt_paths": {
+    "send_receipts": "recruit/send-receipts.jsonl",
+    "reply_ledger": "recruit/ledger.json"
+  }
+}
