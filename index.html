@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hitchhikers Guide</title>
+  <script src="https://cdn.usefathom.com/script.js" data-site="LLFJJYXQ" defer></script>
   <style>
     :root {
       color-scheme: dark;
@@ -145,6 +146,7 @@
           <input type="hidden" name="_subject" value="HHGTTF Time Machine signup" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://hitchhikersguidetothefuture.com/thanks.html" />
           <input type="hidden" name="source" value="hhgttf-homepage" />
           <div class="signup-row">
             <label class="sr-only" for="email">Email address</label>
@@ -179,6 +181,15 @@
 
       tick();
       setInterval(tick, 1000);
+
+      const signupForm = document.querySelector("[data-receipt-id=\"hhgttf-email-list-signup-hooked-up\"]");
+      if (signupForm) {
+        signupForm.addEventListener('submit', function () {
+          if (window.fathom && typeof window.fathom.trackEvent === 'function') {
+            window.fathom.trackEvent('HHGTTF Email Signup Submitted');
+          }
+        });
+      }
     })();
   </script>
 </body>

@@ -14,6 +14,7 @@ class FormParser(HTMLParser):
         self.forms = []
         self.inputs = []
         self.buttons = []
+        self.scripts = []
         self._current_form = None
 
     def handle_starttag(self, tag, attrs):
@@ -25,6 +26,8 @@ class FormParser(HTMLParser):
             self.inputs.append(data)
         elif tag == "button":
             self.buttons.append(data)
+        elif tag == "script":
+            self.scripts.append(data)
 
     def handle_endtag(self, tag):
         if tag == "form":
@@ -65,6 +68,32 @@ def test_homepage_has_real_email_list_signup_hook():
     assert any(field.get("name") == "email" and "required" in field for field in email_inputs)
     assert any(field.get("name") == "source" and field.get("value") == "hhgttf-homepage" for field in parser.inputs)
     assert any(button.get("type") == "submit" for button in parser.buttons)
+
+
+def test_homepage_tracks_pageviews_and_signup_submissions_with_fathom():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    parser = FormParser()
+    parser.feed(html)
+
+    fathom_scripts = [
+        script for script in parser.scripts
+        if script.get("src") == "https://cdn.usefathom.com/script.js"
+    ]
+    assert len(fathom_scripts) == 1
+    assert fathom_scripts[0].get("data-site") == "LLFJJYXQ"
+    assert "defer" in fathom_scripts[0]
+
+    assert "window.fathom.trackEvent('HHGTTF Email Signup Submitted')" in html
+    assert 'document.querySelector("[data-receipt-id=' in html
+    assert 'hhgttf-email-list-signup-hooked-up' in html
+    assert any(field.get("name") == "_next" and field.get("value") == "https://hitchhikersguidetothefuture.com/thanks.html" for field in parser.inputs)
+
+
+def test_thanks_page_has_fathom_tracking_for_submission_confirmation():
+    thanks = (ROOT / "thanks.html").read_text(encoding="utf-8")
+    assert 'data-site="LLFJJYXQ"' in thanks
+    assert 'src="https://cdn.usefathom.com/script.js"' in thanks
+    assert "HHGTTF Email Signup Thank You" in thanks
 
 
 def test_each_transmission_has_desired_receipt_contract():
