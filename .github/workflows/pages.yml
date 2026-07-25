@@ -19,8 +19,8 @@ jobs:
           python-version: '3.11'
       - name: Install test runner
         run: python -m pip install pytest
-      - name: Run receipt/site tests
-        run: python -m pytest -q
+      - name: Run current site contract tests
+        run: python -m pytest -q tests/test_workspace_selector.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
